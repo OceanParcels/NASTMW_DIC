@@ -21,24 +21,25 @@ mask_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_trajectory_ma
 aggregated_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_events_aggregated/"
 
 experiments = [
-    "stay_in_edw_1y",
-    "reached_mixing_back_in_edw",
-    "densification_001_1y_after_2y",
-    "subduction_after_1y",
+    "start_in_edw_any",
+    # "stay_in_edw_1y",
+    # "reached_mixing_back_in_edw",
+    # "densification_001_1y_after_2y",
+    # "subduction_after_1y",
     # above represent the most important ones
-    "reached_mixing",
-    "densification_005_1y_after_2y",
-    "densification_005_1y_after_3y",
-    "densification_001_1y_after_3y",
-    "densification_0_1y_after_2y",
-    "densification_0_1y_after_3y",
-    "reached_mixed",
-    "reached_mixed_back_in_edw",
-    "reached_mixed_not_in_edw",
-    "return_to_edw_1y",
-    "reached_mixing_not_in_edw",
-    "subduction_after_2y",
-    "subduction_after_3y"
+    # "reached_mixing",
+    # "densification_005_1y_after_2y",
+    # "densification_005_1y_after_3y",
+    # "densification_001_1y_after_3y",
+    # "densification_0_1y_after_2y",
+    # "densification_0_1y_after_3y",
+    # "reached_mixed",
+    # "reached_mixed_back_in_edw",
+    # "reached_mixed_not_in_edw",
+    # "return_to_edw_1y",
+    # "reached_mixing_not_in_edw",
+    # "subduction_after_2y",
+    # "subduction_after_3y"
 ]
 
 
@@ -68,7 +69,9 @@ for experiment in experiments:
 
             start_in_edw = mask_ds.start_in_edw
 
-            if experiment == "return_to_edw_1y":
+            if experiment == "start_in_edw_any":
+                total_mask = start_in_edw
+            elif experiment == "return_to_edw_1y":
                 total_mask = mask_ds.forw_persistent_mask * start_in_edw
             elif experiment == "stay_in_edw_1y":
                 total_mask = mask_ds.forw_persistent_mask_full * start_in_edw

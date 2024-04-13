@@ -1,6 +1,3 @@
-
-import event_identification
-import preprocess_timeseries
 from importlib import reload
 import numpy as np
 import xarray as xr
@@ -11,46 +8,52 @@ from collections import deque
 import tqdm
 
 
-sys.path.append('/nethome/4302001/tracer_backtracking/tools')
+sys.path.append('/nethome/4302001/NASTMW_DIC/tools')
+import event_identification
+import preprocess_timeseries
 
 traj_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_trajectories/"
-# event_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_events_timescales_yearly/"
-event_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_events_timescales_yearly_sensitivity/"
+event_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_events_timescales_yearly/"
+# event_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_events_timescales_yearly_sensitivity/"
 mask_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_trajectory_masks/"
-# timescale_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_multiyear_timescales/"
-timescale_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_multiyear_timescales_sensitivity/"
+timescale_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_multiyear_timescales/"
+# timescale_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_multiyear_timescales_sensitivity/"
 
 
 experiments = [
-    "stay_in_edw_1y",
-    "reached_mixing_back_in_edw",
-    "densification_001_1y_after_2y",
-    "subduction_after_1y",
-    # above represent the most important ones
-    "reached_mixing",
-    "densification_005_1y_after_2y",
-    "densification_005_1y_after_3y",
-    "densification_001_1y_after_3y",
-    "densification_0_1y_after_2y",
-    "densification_0_1y_after_3y",
-    "reached_mixed",
-    "reached_mixed_back_in_edw",
-    "reached_mixed_not_in_edw",
-    "return_to_edw_1y",
-    "reached_mixing_not_in_edw",
-    "subduction_after_2y",
-    "subduction_after_3y"
+    # "start_in_edw_any",
+    "backw_start_in_edw_any"
+    # "stay_in_edw_1y",
+    # "reached_mixing_back_in_edw",
+    # "densification_001_1y_after_2y",
+    # "subduction_after_1y",
+    ## above represent the most important ones
+    # "reached_mixing",
+    # "densification_005_1y_after_2y",
+    # "densification_005_1y_after_3y",
+    # "densification_001_1y_after_3y",
+    # "densification_0_1y_after_2y",
+    # "densification_0_1y_after_3y",
+    # "reached_mixed",
+    # "reached_mixed_back_in_edw",
+    # "reached_mixed_not_in_edw",
+    # "return_to_edw_1y",
+    # "reached_mixing_not_in_edw",
+    # "subduction_after_2y",
+    # "subduction_after_3y"
 ]
 
 
 for experiment in experiments:
-    for rollwindow in [1, 6, 10, 20]:
+    for rollwindow in [10]:#[1, 6, 10, 20]:
         print(f"🕵️  Now working on experiment {experiment}, rollwindow = {rollwindow}")
         binned_events_per_year = {}
         for year in range(1995, 2016):
             print(f"🗓️ Year: {year}")
 
             if "subduction" in experiment:
+                sign = "-"
+            elif "backw" in experiment:
                 sign = "-"
             else:
                 sign = ""
@@ -61,8 +64,10 @@ for experiment in experiments:
                                                                                 "mask": False,
                                                                                 "in_edw": False
                                                                                 },
-                                                                    pickle_suffix=f"_events_rw{rollwindow}.pkl",
-                                                                    pickle_dir=event_dir + f"filter_{rollwindow}day/")
+                                                                    # pickle_suffix=f"_events_rw{rollwindow}.pkl",
+                                                                    pickle_dir=event_dir, # + f"filter_{rollwindow}day/"
+                                                                    pickle_suffix=f"_events.pkl",
+                                                                    )
             mask_ds = xr.open_dataset(mask_dir + f"EDW_wfluxes_B_{year}-09-01_1095d_dt{sign}90_odt24_masks.nc")
             event_identification.check_mask_ds_attrs(events.ds, mask_ds)
             event_identification.check_events_mask_trajs(events, mask_ds)
@@ -70,7 +75,11 @@ for experiment in experiments:
             true_template = (events.ds.DIC*0+1).fillna(1).astype(bool)
             start_in_edw = true_template * mask_ds.start_in_edw
 
-            if experiment == "return_to_edw_1y":
+            if experiment == "start_in_edw_any":
+                total_mask = start_in_edw
+            elif experiment == "backw_start_in_edw_any":
+                total_mask = start_in_edw
+            elif experiment == "return_to_edw_1y":
                 total_mask = mask_ds.forw_persistent_mask * start_in_edw
             elif experiment == "stay_in_edw_1y":
                 total_mask = mask_ds.forw_persistent_mask_full * start_in_edw

@@ -44,6 +44,7 @@ for year in tqdm.tqdm(years, desc="years"):
 
         if sign == "":
             mask_dict = {
+                "start_in_edw_any": start_in_edw,
                 "return_to_edw_1y": mask_ds.forw_persistent_mask * start_in_edw,
                 "stay_in_edw_1y": mask_ds.forw_persistent_mask_full * start_in_edw,
                 "densification_005_1y_after_2y": mask_ds.forw_densification_mask_005_2y_yearpersist * start_in_edw,
@@ -61,6 +62,7 @@ for year in tqdm.tqdm(years, desc="years"):
             }
         elif sign == "-":
             mask_dict = {
+                "backw_start_in_edw_any": start_in_edw,
                 "subduction_after_1y": mask_ds.backw_subduction_mask_1y * start_in_edw,
                 "subduction_after_2y": mask_ds.backw_subduction_mask_2y * start_in_edw,
                 "subduction_after_3y": mask_ds.backw_subduction_mask_3y * start_in_edw,
@@ -115,5 +117,5 @@ for year in tqdm.tqdm(years, desc="years"):
                     }
                 pass
             print(f"✅")
-with open(f"output/EDW_DIC_monthly_change_{years[0]}-{years[-1]}.pickle", "wb") as f:
+with open(f"output/EDW_DIC_monthly_change_{years[0]}-{years[-1]}_v3.pickle", "wb") as f:
     pickle.dump(results, f)

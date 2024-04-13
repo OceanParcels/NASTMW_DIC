@@ -4,7 +4,7 @@ import sys
 import os
 import glob
 
-sys.path.append('/nethome/4302001/tracer_backtracking/tools')
+sys.path.append('/nethome/4302001/NASTMW_DIC/tools')
 import preprocess_timeseries
 
 data_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_trajectories/"
@@ -160,6 +160,7 @@ def analysis(filename, mode='forward', mask_export=False, DIC_export=True):
     mask_dict = {}
     if mode == 'forward':
         print("Creating EDW persistent mask")
+        mask_dict["start_in_edw_any"] = start_in_edw
         mask_dict["forw_persistent_mask"] = chain_mask([start_in_edw,
                                            (ds.isel(obs=365).in_edw == True),
                                            ((ds.isel(obs=365).EDW_part_of_biggest_blob > 0.1) +
@@ -231,6 +232,7 @@ def analysis(filename, mode='forward', mask_export=False, DIC_export=True):
 
     if mode == 'backward':
         print("backward subduction mask")
+        mask_dict["backw_start_in_edw_any"] = start_in_edw
         mask_dict["backw_subduction_mask_1y"] = chain_mask([start_in_edw,
                                             (ds.isel(obs=1*365).in_mixed_layer == True)])
         mask_dict["backw_subduction_mask_2y"] = chain_mask([start_in_edw,
