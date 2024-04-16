@@ -11,15 +11,15 @@ import argparse
 
 import parcels
 
-sys.path.append("/nethome/4302001/tracer_backtracking/simulations/kernels")
+sys.path.append("/nethome/4302001/NASTMW_DIC/simulations/kernels")
 import EDW_Sampler_fluxes
 import default_kernels
 
 if __name__ == '__main__':
     # Argument parsing
     parser = argparse.ArgumentParser(description="Advect BGC sampling particles in the North Atlantic")
-    parser.add_argument('-T0', default="1992-03-01", type=str, help="Particle initialization time. Must be formatted as YYYY-MM-DD.")
-    parser.add_argument('-T', default=120, type=int, help='Simulation time (days)')
+    parser.add_argument('-T0', default="1992-09-01", type=str, help="Particle initialization time. Must be formatted as YYYY-MM-DD.")
+    parser.add_argument('-T', default=3*365, type=int, help='Simulation time (days)')
     parser.add_argument('-dt', default=3*60, type=int, help='Advection timestep for advection in minutes')
     parser.add_argument('-odt', '--outputdt', default=24, type=int, help='Output timestep in hours')
     parser.add_argument('-tinterp', '--tracer_interp_method', default='linear_invdist_land_tracer',

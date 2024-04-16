@@ -21,26 +21,26 @@ timescale_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_multiyea
 
 
 experiments = [
-    # "start_in_edw_any",
+    "start_in_edw_any",
     "backw_start_in_edw_any"
-    # "stay_in_edw_1y",
-    # "reached_mixing_back_in_edw",
-    # "densification_001_1y_after_2y",
-    # "subduction_after_1y",
-    ## above represent the most important ones
-    # "reached_mixing",
-    # "densification_005_1y_after_2y",
-    # "densification_005_1y_after_3y",
-    # "densification_001_1y_after_3y",
-    # "densification_0_1y_after_2y",
-    # "densification_0_1y_after_3y",
-    # "reached_mixed",
-    # "reached_mixed_back_in_edw",
-    # "reached_mixed_not_in_edw",
-    # "return_to_edw_1y",
-    # "reached_mixing_not_in_edw",
-    # "subduction_after_2y",
-    # "subduction_after_3y"
+    "stay_in_edw_1y",
+    "reached_mixing_back_in_edw",
+    "densification_001_1y_after_2y",
+    "subduction_after_1y",
+    # above represent the most important ones
+    "reached_mixing",
+    "densification_005_1y_after_2y",
+    "densification_005_1y_after_3y",
+    "densification_001_1y_after_3y",
+    "densification_0_1y_after_2y",
+    "densification_0_1y_after_3y",
+    "reached_mixed",
+    "reached_mixed_back_in_edw",
+    "reached_mixed_not_in_edw",
+    "return_to_edw_1y",
+    "reached_mixing_not_in_edw",
+    "subduction_after_2y",
+    "subduction_after_3y"
 ]
 
 

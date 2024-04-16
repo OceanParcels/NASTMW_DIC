@@ -8,7 +8,7 @@ import tqdm
 import gsw
 
 data_dir = "/nethome/4302001/local_data/"
-output_dir = "/nethome/4302001/tracer_backtracking/analysis/output/"
+output_dir = "/nethome/4302001/NASTMW_DIC/analysis/output/"
 
 
 hgrid = xr.open_dataset(data_dir + "mesh/mesh_hgr_PSY4V2_deg_NA_subset.nc")

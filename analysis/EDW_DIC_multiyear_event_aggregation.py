@@ -11,7 +11,7 @@ from collections import deque
 import tqdm
 
 
-sys.path.append('/nethome/4302001/tracer_backtracking/tools')
+sys.path.append('/nethome/4302001/NASTMW_DIC/tools')
 
 traj_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_trajectories/"
 # event_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_events_timescales_yearly/"
@@ -22,24 +22,25 @@ aggregated_dir = "/storage/shared/oceanparcels/output_data/data_Daan/EDW_events_
 
 experiments = [
     "start_in_edw_any",
-    # "stay_in_edw_1y",
-    # "reached_mixing_back_in_edw",
-    # "densification_001_1y_after_2y",
-    # "subduction_after_1y",
+    "backw_start_in_edw_any"
+    "stay_in_edw_1y",
+    "reached_mixing_back_in_edw",
+    "densification_001_1y_after_2y",
+    "subduction_after_1y",
     # above represent the most important ones
-    # "reached_mixing",
-    # "densification_005_1y_after_2y",
-    # "densification_005_1y_after_3y",
-    # "densification_001_1y_after_3y",
-    # "densification_0_1y_after_2y",
-    # "densification_0_1y_after_3y",
-    # "reached_mixed",
-    # "reached_mixed_back_in_edw",
-    # "reached_mixed_not_in_edw",
-    # "return_to_edw_1y",
-    # "reached_mixing_not_in_edw",
-    # "subduction_after_2y",
-    # "subduction_after_3y"
+    "reached_mixing",
+    "densification_005_1y_after_2y",
+    "densification_005_1y_after_3y",
+    "densification_001_1y_after_3y",
+    "densification_0_1y_after_2y",
+    "densification_0_1y_after_3y",
+    "reached_mixed",
+    "reached_mixed_back_in_edw",
+    "reached_mixed_not_in_edw",
+    "return_to_edw_1y",
+    "reached_mixing_not_in_edw",
+    "subduction_after_2y",
+    "subduction_after_3y"
 ]
 
 
